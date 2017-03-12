@@ -19,10 +19,15 @@
     },
     methods: {
       getQuote () {
-        axios.get('https://talk.vtaiwan.tw/t/100.json')
+        axios.get('https://[hehe]/c/4.json?api_key=[haha]&api_username=[hoho]')
+          .then(result => {
+            console.log(result)
+            this.quote = result.data.users[0].username
+          })
+        /* axios.get('https://talk.vtaiwan.tw/t/100.json')
           .then(result => {
             this.quote = result.data.post_stream.posts[0].cooked
-          })
+          }) */
       }
     }
   }
