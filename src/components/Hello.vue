@@ -1,22 +1,170 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div class="container-fluid">
+    <div class="row-fluid ">
+      <div class="col-md-3">
+       
+        <div class="sidebar">
+             <div class="name-title">            
+              Shu 
+              Yang 
+              Lin
+             </div>
+
+             <div class="self-intro">
+             With double masters in Computer Science and Interaction Design, I work with international multidiscipline teams, support the team with design and prototypes in design process.  I am currently freelancing as a UX Designer and Front End Team Lead based in Irvine, California. <br>  I appreciate the beauty of business and the harmony of team work. <br>
+         
+             I am a maker with strong compassion, motivated by working on projects that values user experience and well being. I founded <a href="portfolio/griphint.html">Griphint</a>, an assistive learning tool designed for children with Autism.<br>
+             <br>
+             
+
+             </div>
+
+            <!--             
+              <div class="menu">
+              <ul>
+                <li><i class="fa fa-file fa-fw"></i>Portfolio</li>
+                <li><i class="fa fa-book fa-fw"></i>About</li>
+                <li><i class="fa fa-user fa-fw"></i>Contact</li>
+                <li><i class="fa fa-pencil fa-fw"></i>Blog</li>
+              </ul>  
+            </div> -->
+
+            <div class="info">
+              For more information, please contact:
+              <div class="email">shuyanglin.tw@gmail.com</div>
+            </div>
+
+            <div class="download">
+              Download my cv:<br>
+              <a href="shuyanglin_cv.pdf"><i class="icon-file-text-alt icon-2x"></i></a>
+            </div>
+        </div>
+
+      </div>
+      <div class="col-md-offset-1 col-md-8">
+        <div class="container-fluid wall">
+          <div class="row">
+            <div class="col-md-4">
+                <div class="hovereffect">
+                  <a href="portfolio/griphint.html">
+                  <img class="img-responsive" src="img/griphint/griphint-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>Griphint</h2>
+                     <h4>Design for Autistic children</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="hovereffect">                
+                   <a href="portfolio/memorymap.html"> 
+                   <img class="img-responsive" src="img/memory_map/memorymap-teaser.jpg" alt="">
+                   <div class="overlay">
+                     <h2>Memory Map</h2>
+                      <h4>Design for Alzheimer's</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="hovereffect">  
+                  <a href="portfolio/letsmeet.html">
+                    <img class="img-responsive" src="img/lets_meet/letsmeet-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>Let's Meet</h2>
+                     <h4>Playful Scheduling</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+                <div class="hovereffect">  
+                  <a href="portfolio/skypeframe.html">
+                    <img class="img-responsive" src="img/the_little_wooden_skype_frame/skypeframe-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>The Little Wooden<br> SKype Frame</h2>
+                      <h4>Visualizing <br>The Sence of Time</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+               <div class="hovereffect"> 
+                  <a href="portfolio/wishegg.html">
+                    <img class="img-responsive" src="img/wish_egg/wishegg-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>Whish Egg</h2>
+                      <h4>Reminisce with Touch</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a href="portfolio/stairwhispers.html">
+                <div class="hovereffect">  
+                    <img class="img-responsive" src="img/stair_whispers/stairwispers-teaser.jpg" alt="">
+                <div class="overlay">
+                     <h2>Stair whispers</h2>
+                     <h4>Visualizing Invisible</h4>
+                  </div>
+            
+                </div>
+                </a>
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+                <div class="hovereffect"> 
+                  <a href="portfolio/pub.html">
+                  <img class="img-responsive" src="img/pub/pub-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>Point Upon Body</h2>
+                     <h4>Exploring Eyes-Free Interaction and Methods on an Arm</h4>
+                  </div>
+                  </a> 
+          
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="hovereffect"> 
+                   <a href="portfolio/haharesearch.html">
+                   <img class="img-responsive" src="img/haha_research/haharesearch-teaser.jpg" alt="">
+                   <div class="overlay">
+                     <h2>Haha Research</h2>
+                      <h4>Laughter in Message</h4>
+                  </div>
+                  </a>
+          
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="hovereffect"> 
+                  <a href="portfolio/sonarwatch.html">
+                  <img class="img-responsive" src="img/sonar_watch/sonarwatch-teaser.jpg" alt="">
+                  <div class="overlay">
+                     <h2>Sonar Watch</h2>
+                     <h4>Appropriating the Forearm as a Slider Bar</h4>
+                  </div>
+                  </a>
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
   </div>
 </template>
 
