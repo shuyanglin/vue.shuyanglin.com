@@ -1,43 +1,25 @@
 <template>
   <div class="container-fluid">
     <div class="row-fluid ">
-      <div class="col-md-3">
-       
+      <div class="col-md-3">       
         <div class="sidebar">
-             <div class="name-title">            
-              Shu 
-              Yang 
-              Lin
-             </div>
+          <div class="name-title">            
+            {{me.title}}
+          </div>
 
-             <div class="self-intro">
-             With double masters in Computer Science and Interaction Design, I work with international multidiscipline teams, support the team with design and prototypes in design process.  I am currently freelancing as a UX Designer and Front End Team Lead based in Irvine, California. <br>  I appreciate the beauty of business and the harmony of team work. <br>
-         
-             I am a maker with strong compassion, motivated by working on projects that values user experience and well being. I founded <a href="portfolio/griphint.html">Griphint</a>, an assistive learning tool designed for children with Autism.<br>
-             <br>
-             
+          <div class="self-intro">
+            {{me.intro}}
+          </div>
+            
+          <div class="info">
+            {{me.info}}
+            <div class="email">{{me.email}}</div>
+          </div>
 
-             </div>
-
-            <!--             
-              <div class="menu">
-              <ul>
-                <li><i class="fa fa-file fa-fw"></i>Portfolio</li>
-                <li><i class="fa fa-book fa-fw"></i>About</li>
-                <li><i class="fa fa-user fa-fw"></i>Contact</li>
-                <li><i class="fa fa-pencil fa-fw"></i>Blog</li>
-              </ul>  
-            </div> -->
-
-            <div class="info">
-              For more information, please contact:
-              <div class="email">shuyanglin.tw@gmail.com</div>
-            </div>
-
-            <div class="download">
-              Download my cv:<br>
-              <a href="shuyanglin_cv.pdf"><i class="icon-file-text-alt icon-2x"></i></a>
-            </div>
+          <div class="download">
+            {{me.download}}<br>
+            <a v-bind:href="me.cv"><i class="icon-file-text-alt icon-2x"></i></a>
+          </div>
         </div>
 
       </div>
@@ -169,14 +151,52 @@
 </template>
 
 <script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Hello to Your Vue.js App'
+  import axios from 'axios'
+
+  export default {
+    data () {
+      return {
+        me: {}
+      }
+    },
+    created: function () {
+      this.getMe()
+    },
+    methods: {
+      getMe () {
+        axios.get('https://discourse.shuyanglin.com/t/24.json?api_key=69152bfd6780a4b8fe9105d1b616ccfc2de28706cbf16a2f0531fb6b08cf38e6&api_username=shu&include_raw=1')
+          .then(result => {
+            var raw = result.data.post_stream.posts[0].raw
+            var that = this
+            raw.split('----------').forEach(function (el, index) {
+              el = el.trim()
+              var exp = el.split(':')[1]
+              switch (exp) {
+                case 'sunflower':
+                  that.me.title = el.replace(':sunflower:', '').trim()
+                  break
+                case 'smile':
+                  that.me.intro = el.replace(':smile:', '').trim()
+                  break
+                case 'penguin':
+                  that.me.info = el.replace(':penguin:', '').trim()
+                  break
+                case 'e-mail':
+                  that.me.email = el.replace(':e-mail:', '').trim()
+                  break
+                case 'arrow_down':
+                  that.me.download = el.replace(':arrow_down:', '').trim()
+                  break
+                case 'paperclip':
+                  that.me.cv = el.replace(':paperclip:', '').trim()
+                  break
+              }
+            })
+            this.$set(this.me, 'me', this.me)
+          })
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
