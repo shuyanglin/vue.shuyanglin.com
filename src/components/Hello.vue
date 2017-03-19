@@ -26,15 +26,10 @@
       <div class="col-md-offset-1 col-md-8">
         <div class="container-fluid wall">
           <div class="row">
-            <div class="col-md-4">
-                <div class="hovereffect">
-                  <a href="portfolio/griphint.html">
-                  <img class="img-responsive" src="img/griphint/griphint-teaser.jpg" alt="">
-                  <div class="overlay">
-                     <h2>Griphint</h2>
-                     <h4>Design for Autistic children</h4>
-                  </div>
-                  </a>
+            <div class="col-md-4">            
+                <div v-for="item in teasers">
+                  <h1>{{ item.title }}</h1>
+                  <h2>{{ item.slogan}}</h2>
                 </div>
             </div>
 
@@ -156,11 +151,13 @@
   export default {
     data () {
       return {
-        me: {}
+        me: {},
+        teasers: []
       }
     },
     created: function () {
       this.getMe()
+      this.getTeasers()
     },
     methods: {
       getMe () {
@@ -193,6 +190,48 @@
               }
             })
             this.$set(this.me, 'me', this.me)
+          })
+      },
+      getTeasers () {
+        axios.get('https://discourse.shuyanglin.com/c/1.json?api_key=69152bfd6780a4b8fe9105d1b616ccfc2de28706cbf16a2f0531fb6b08cf38e6&api_username=shu')
+          .then(result => {
+            this.teasers = result.data.topic_list.topics
+            var that = this
+            this.teasers.forEach(function (element, index) {
+              if (element.title === 'Home') {
+                that.teasers.splice(index, 1)
+              } else {
+                that.getTopics(element.id, index)
+              }
+            })
+          })
+      },
+      getTopics (id, index) {
+        axios.get('https://discourse.shuyanglin.com/t/' + id + '.json?api_key=69152bfd6780a4b8fe9105d1b616ccfc2de28706cbf16a2f0531fb6b08cf38e6&api_username=shu&include_raw=1')
+          .then(result => {
+            var raw = result.data.post_stream.posts[0].raw
+            var that = this
+            // console.log(index + '::' + id)
+            raw.split('%%%%%')[0].split('\n').forEach(function (el, i) {
+              var exp = el.split(' ')[0]
+              // console.log('exp: ' + exp + 'indexing: ' + indexing + 'index: ' + index)
+              switch (exp) {
+                case '##':
+                  that.teasers[index].title = el.replace('## ', '')
+                  // console.log(that.teasers[index].title)
+                  break
+                case 'slogan:':
+                  that.teasers[index].slogan = el.replace('slogan: ', '')
+                  // console.log(that.teasers[index].slogan)
+                  break
+                case 'cover:':
+                  that.teasers[index].cover = el.replace('cover: ', '')
+                  // console.log(that.teasers[index].cover)
+                  break
+                default:
+                  break
+              }
+            })
           })
       }
     }
