@@ -28,7 +28,7 @@
           <div class="row" v-for="items in row">         
             <div class="col-md-4" v-for="item in items">
               <div class="hovereffect">                
-                <a v-bind:href="'portfolio/' + '{{item.slug}}'"> 
+                <a v-bind:href="'portfolio/' + item.slug"> 
                   <img class="img-responsive" v-bind:src="item.cover" v-bind:alt="item.title">
                   <div class="overlay">
                     <h2>{{ item.title }}</h2>
