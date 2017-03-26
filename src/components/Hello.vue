@@ -20,6 +20,13 @@
             {{me.download}}<br>
             <a v-bind:href="me.cv"><i class="icon-file-text-alt icon-2x"></i></a>
           </div>
+          
+          <div>
+          <el-button @click.native="visible = true">Button</el-button>
+          <el-dialog v-model="visible" title="Hello world">
+            <p>Welcom to Element</p>
+          </el-dialog>
+          </div>
         </div>
 
       </div>
@@ -43,13 +50,13 @@
     </div>
   </div>
 </template>
-
 <script>
   import axios from 'axios'
 
   export default {
     data () {
       return {
+        visible: false,
         me: {},
         teasers: [],
         row: [],
