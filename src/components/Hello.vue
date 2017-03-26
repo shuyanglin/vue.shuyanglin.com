@@ -25,18 +25,16 @@
       </div>
       <div class="col-md-offset-1 col-md-8">
         <div class="container-fluid wall">
-          <div v-for="(item, i) in teasers">
-            <div class="row" v-if="i % 3 === 0">
-              <div class="col-md-4">
-                <div class="hovereffect">                
-                  <a v-bind:href="'portfolio/' + item.slug"> 
-                    <img class="img-responsive" v-bind:src="item.cover" v-bind:alt="item.title">
-                    <div class="overlay">
-                      <h2>{{ item.title }}</h2>
-                      <h4>{{ item.slogan }}</h4>
-                    </div>
-                  </a>
-                </div>
+          <div class="row" v-for="items in row">         
+            <div class="col-md-4" v-for="item in items">
+              <div class="hovereffect">                
+                <a v-bind:href="'portfolio/' + '{{item.slug}}'"> 
+                  <img class="img-responsive" v-bind:src="item.cover" v-bind:alt="item.title">
+                  <div class="overlay">
+                    <h2>{{ item.title }}</h2>
+                    <h4>{{ item.slogan }}</h4>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -53,7 +51,9 @@
     data () {
       return {
         me: {},
-        teasers: []
+        teasers: [],
+        row: [],
+        count: 0
       }
     },
     created: function () {
@@ -110,18 +110,20 @@
       getTopics (id, index) {
         axios.get('https://discourse.shuyanglin.com/t/' + id + '.json?api_key=69152bfd6780a4b8fe9105d1b616ccfc2de28706cbf16a2f0531fb6b08cf38e6&api_username=shu&include_raw=1')
           .then(result => {
+            this.count += 1
             this.teasers[index].slug = result.data.slug
-            // console.log(this.teasers[index].slug)
             var raw = result.data.post_stream.posts[0].raw
             var that = this
-            // console.log(index + '::' + id)
             raw.split('%%%%%')[0].split('\n').forEach(function (el, i) {
               var exp = el.split(' ')[0]
-              // console.log('exp: ' + exp + 'indexing: ' + indexing + 'index: ' + index)
               switch (exp) {
                 case '##':
                   that.teasers[index].title = el.replace('## ', '')
                   // console.log(that.teasers[index].title)
+                  break
+                case 'sort:':
+                  that.teasers[index].sort = +el.replace('sort: ', '')
+                  console.log('sort: ' + that.teasers[index].sort)
                   break
                 case 'slogan:':
                   that.teasers[index].slogan = el.replace('slogan: ', '')
@@ -129,13 +131,25 @@
                   break
                 case 'cover:':
                   that.teasers[index].cover = el.replace('cover: ', '')
-                  // console.log(that.teasers[index].cover)
+                  // console.log(index)
+                  // console.log(that.teasers[index])
                   break
                 default:
                   break
               }
             })
-            that.teasers.splice(index, 1, that.teasers[index])
+            var sort = this.teasers[index].sort
+            var colId = sort % 3
+            var rowId = Math.floor(sort / 3)
+            if (this.row[rowId] === undefined) { this.row[rowId] = [] }
+            this.row[rowId][colId] = this.teasers[index]
+            var total = this.teasers.length
+            var totalRows = Math.floor((total - 1) / 3)
+            if (this.count === total) {
+              for (var i = 0; i < totalRows; i++) {
+                this.row.splice(i, 1, this.row[i])
+              }
+            }
           })
       }
     }
