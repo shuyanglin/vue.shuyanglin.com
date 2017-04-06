@@ -60,7 +60,8 @@
         me: {},
         teasers: [],
         row: [],
-        count: 0
+        count: 0,
+        rowCounter: 0
       }
     },
     created: function () {
@@ -126,35 +127,54 @@
               switch (exp) {
                 case '##':
                   that.teasers[index].title = el.replace('## ', '')
-                  // console.log(that.teasers[index].title)
                   break
                 case 'sort:':
                   that.teasers[index].sort = +el.replace('sort: ', '')
-                  console.log('sort: ' + that.teasers[index].sort)
                   break
                 case 'slogan:':
                   that.teasers[index].slogan = el.replace('slogan: ', '')
-                  // console.log(that.teasers[index].slogan)
                   break
                 case 'cover:':
                   that.teasers[index].cover = el.replace('cover: ', '')
-                  // console.log(index)
-                  // console.log(that.teasers[index])
                   break
                 default:
                   break
               }
             })
+            console.log('index: ' + index)
             var sort = this.teasers[index].sort
             var colId = sort % 3
             var rowId = Math.floor(sort / 3)
             if (this.row[rowId] === undefined) { this.row[rowId] = [] }
             this.row[rowId][colId] = this.teasers[index]
             var total = this.teasers.length
-            // var totalRows = Math.floor((total - 1) / 3)
-            if (this.count === total) {
-              this.row.splice(this.row.length)
+            var numRows = Math.ceil(total / 3)
+            // check before splicings a row (and prev rows if neccessary)
+            for (var i = 0; i < numRows; i++) {
+              if (this.row[i] !== undefined && this.row[i].length === 3) {
+                if (this.row[i][0] === undefined || this.row[i][1] === undefined || this.row[i][2] === undefined) {
+                  return
+                } else {
+                  // this row is done
+                  console.log('row ' + i + ' is done.')
+                  this.rowCounter++
+                  // if this row and above are done
+                  if (this.rowCounter === i + 1) {
+                    // splice this row and above
+                    for (var x = 0; x < this.rowCounter; x++) {
+                      console.log('splice row' + x)
+                      this.row.splice(x, 1, this.row[x])
+                    }
+                  } else {
+                    console.log('jump')
+                  }
+                }
+              } else {
+                return
+              }
             }
+            console.log(this.rowCounter)
+            this.rowCounter = 0
           })
       }
     }
