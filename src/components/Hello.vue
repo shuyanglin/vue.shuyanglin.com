@@ -151,11 +151,9 @@
             if (this.row[rowId] === undefined) { this.row[rowId] = [] }
             this.row[rowId][colId] = this.teasers[index]
             var total = this.teasers.length
-            var totalRows = Math.floor((total - 1) / 3)
+            // var totalRows = Math.floor((total - 1) / 3)
             if (this.count === total) {
-              for (var i = 0; i < totalRows; i++) {
-                this.row.splice(i, 1, this.row[i])
-              }
+              this.row.splice(this.row.length)
             }
           })
       }
